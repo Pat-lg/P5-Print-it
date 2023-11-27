@@ -16,7 +16,6 @@ const slides = [
 		"tagLine": "Autocollants <span>avec découpe laser sur mesure</span>"
 	}
 ]
-console.log(slides);
 
 // ajout du click droit dans la console
 
@@ -33,6 +32,7 @@ previousImage.addEventListener("click", () => {
 	console.log("left click")
 });
 
+/*  étape 3*/
 
 // cibler la div avec la classe dots
 const point = document.querySelector(".dots")
@@ -40,14 +40,39 @@ const point = document.querySelector(".dots")
 let counter = 0;
 
 //boucle de la longeur du carrousel 
-for (let i = 0; i < slides.length; i++) { 
-// créer une div par image
+for (let i = 0; i < slides.length; i++) {
+	// créer une div par image
 	const bulletPoint = document.createElement("div");
-// ajout de la class "dot" sur les divs
+	// ajout de la class "dot" sur les divs
 	bulletPoint.classList.add("dot");
-// ajout des divs bulletpoint ds la div class dots
+	// ajout des divs bulletpoint ds la div class dots
 	point.appendChild(bulletPoint);
 	// la class dot devient dot_selected si i vaut counter
-if (i === counter) bulletPoint.classList.add("dot_selected")}
-	
-	
+	if (i === counter) bulletPoint.classList.add("dot_selected")
+}
+
+
+/*étape 4*/
+
+// sélectionne toutes les div class .dot
+const eachDot = document.querySelectorAll(".dot")
+const text = document.querySelector("#banner p")
+const img = document.querySelector(".banner-img")
+
+
+
+nextImgage.addEventListener("click", () => {
+	// supprimer  la class dot_selected de l'image affichée
+	eachDot[counter].classList.remove("dot_selected");
+	// passer à l'image suivante au click
+	counter++;
+	// RAZ du compteur s'il dépasse le nombre d'image
+	if (counter > eachDot.length - 1)
+		counter = 0;
+	// rajouter la class dot_selected sur la nouvelle page affichée
+	eachDot[counter].classList.add("dot_selected");
+	// changer l'image 
+	img.src = "./assets/images/slideshow/" + slides[counter].image;
+	// changer le texte
+	text.innerHTML = slides[counter].tagLine;
+})
