@@ -17,22 +17,22 @@ const slides = [
 	}
 ]
 
-// ajout du click droit dans la console
+// ajout du clic droit dans la console
 
 const nextImgage = document.querySelector(".arrow_right");
 nextImgage.addEventListener("click", () => {
 	console.log("right click")
 });
 
-
-// ajout du click gauche dans la console
+// ajout du clic gauche dans la console
 
 const previousImage = document.querySelector(".arrow_left");
 previousImage.addEventListener("click", () => {
 	console.log("left click")
 });
 
-/*  étape 3*/
+
+/*  étape 3 */
 
 // cibler la div avec la classe dots
 const point = document.querySelector(".dots")
@@ -52,27 +52,47 @@ for (let i = 0; i < slides.length; i++) {
 }
 
 
-/*étape 4*/
+/*  étape 4  */
 
 // sélectionne toutes les div class .dot
 const eachDot = document.querySelectorAll(".dot")
+
 const text = document.querySelector("#banner p")
 const img = document.querySelector(".banner-img")
 
 
-
-nextImgage.addEventListener("click", () => {
-	// supprimer  la class dot_selected de l'image affichée
-	eachDot[counter].classList.remove("dot_selected");
-	// passer à l'image suivante au click
-	counter++;
-	// RAZ du compteur s'il dépasse le nombre d'image
-	if (counter > eachDot.length - 1)
-		counter = 0;
+// l'image, le texte + le dot_selected = à index du counter
+function change() {
 	// rajouter la class dot_selected sur la nouvelle page affichée
 	eachDot[counter].classList.add("dot_selected");
 	// changer l'image 
 	img.src = "./assets/images/slideshow/" + slides[counter].image;
 	// changer le texte
 	text.innerHTML = slides[counter].tagLine;
+}
+
+
+nextImgage.addEventListener("click", () => {
+	// supprimer  la class dot_selected de l'image affichée
+	eachDot[counter].classList.remove("dot_selected");
+	// passer à l'image suivante au clic
+	counter++;
+	// RAZ du compteur s'il dépasse le nombre d'image
+	if (counter > eachDot.length - 1) { counter = 0; }
+	change();
 })
+
+
+/*  étape 5  */
+
+previousImage.addEventListener("click", () => {
+	// supprimer  la class dot_selected de l'image affichée
+	eachDot[counter].classList.remove("dot_selected");
+	// passer à l'image suivante au clic
+	counter--;
+	// passer à la dernière image du compteur s'il arrive à -1
+	if (counter < 0) { counter = eachDot.length - 1; }
+	change();
+})
+
+change();
